@@ -41,7 +41,7 @@ function App(props) {
 
     setTimeout(() => {
       setAlert(null)
-    }, 1500);
+    }, 2000);
   }
 
   // const router = createBrowserRouter([
