@@ -3,8 +3,8 @@ import './App.css';
 import Navbar from './components/navbar.js';
 import TextForm from './components/TextForm.js';
 import Alert from './components/alert.js';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import About from './components/About';
+// import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+// import About from './components/About';
 
 
 
@@ -44,33 +44,35 @@ function App(props) {
     }, 1500);
   }
 
-  const router = createBrowserRouter([
-    {
-      path: '/',
-      element: <>
-        <Navbar title="TextUtils" switchText={switchText} aboutText="About TextUtils" mode={mode} toggleMode={toggleMode}/>
-        <Alert alert={alert}/>
-        <TextForm mode={mode} showAlert={showAlert} heading="Enter the text to change" uppercase="Change to uppercase" lowercase="Change to lowercase" summary="Show summary" clearText="Clear Text" InverseCase="Inverse Case"/>
-      </>
-    },
-    {
-      path: '/about',
-      element: <>
-        <Navbar title="TextUtils" switchText={switchText} aboutText="About TextUtils" mode={mode} toggleMode={toggleMode}/>
-        <About mode={mode}/>
-      </>
-    }
-  ])
+  // const router = createBrowserRouter([
+  //   {
+  //     path: '/',
+  //     element: <>
+  //       <Navbar title="TextUtils" switchText={switchText} aboutText="About TextUtils" mode={mode} toggleMode={toggleMode}/>
+  //       <Alert alert={alert}/>
+  //       <TextForm mode={mode} showAlert={showAlert} heading="Enter the text to change" uppercase="Change to uppercase" lowercase="Change to lowercase" summary="Show summary" clearText="Clear Text" InverseCase="Inverse Case"/>
+  //     </>
+  //   },
+  //   {
+  //     path: '/about',
+  //     element: <>
+  //       <Navbar title="TextUtils" switchText={switchText} aboutText="About TextUtils" mode={mode} toggleMode={toggleMode}/>
+  //       <About mode={mode}/>
+  //     </>
+  //   }
+  // ])
 
 
   return (
       <>
-        <RouterProvider router={router} />
+        {/* <RouterProvider router={router} /> */}
+        {/* <About mode={mode}/> */}
+        <Navbar title="TextUtils" switchText={switchText} aboutText="About TextUtils" mode={mode} toggleMode={toggleMode}/>
+        <Alert alert={alert}/>
+        <TextForm mode={mode} showAlert={showAlert} heading="Enter the text to change" uppercase="Change to uppercase" lowercase="Change to lowercase" summary="Show summary" clearText="Clear Text" InverseCase="Inverse Case"/> 
       </>
 
 
-        // <TextForm mode={mode} showAlert={showAlert} heading="Enter the text to change" uppercase="Change to uppercase" lowercase="Change to lowercase" summary="Show summary" clearText="Clear Text" InverseCase="Inverse Case"/>  */}
-        // {/* <About mode={mode}/> */}
 
   );
 }
