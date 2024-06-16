@@ -110,11 +110,11 @@ export default function TextForm(props) {
             </div>
             <div className={`container flex-row text-${props.mode === 'light' ? 'dark' : 'light'}`}>
                 <h3>Summary of your text</h3>
-                <p>{text.length > 0 ? words : "0"} Words and {letters} Characters</p>
+                <p>{text.length > 0 ? words : 0} Words and {letters} Characters</p>
                 <h3 className='mt-2'>Preview</h3>
                 <p>{text.length > 0 ? text : "Enter some text in the textbox to preview it here."}</p>
                 <h3>Reading Time:</h3>
-                <p>{0.008 * words} Minutes</p>
+                <p>{text.length > 0 ? 0.008 * words : "0"} Minutes</p>
             </div>
         </div>
     )
