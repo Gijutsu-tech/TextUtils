@@ -91,6 +91,11 @@ export default function TextForm(props) {
         speechSynthesis.speak(utterance)
     }
 
+    const handleStopRead = ()=>{
+        const synth = window.speechSynthesis
+        synth.cancel()
+    }
+
     const handleOnChange = (event) => {
         setText(event.target.value);
     }
@@ -144,6 +149,8 @@ export default function TextForm(props) {
 
 
                     <button type="submit" onClick={handleRead} className="btn btn-primary mx-2 my-2">Read Aloud</button>
+
+                    <button type="submit" onClick={handleStopRead} className="btn btn-primary mx-2 my-2">Stop Reading</button>
                 </div>
             </div>
             <div className={`container flex-row text-${props.mode === 'light' ? 'dark' : 'light'}`}>
