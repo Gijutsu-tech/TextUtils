@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 
 export default function TextForm(props) {
     const [text, setText] = useState("");
-
+    
     const handleUpClick = () => {
         let upText = text.toUpperCase()
         setText(upText);
@@ -49,36 +49,46 @@ export default function TextForm(props) {
 
     const handleSaveText = () => {
         var saveName = prompt("Enter a Name for save")
-        var mySaveText = text
-        localStorage.setItem(saveName, mySaveText)
-        props.showAlert(`'${saveName}' saved to storage`, "Success!")
+        if (saveName != null) {
+            var mySaveText = text
+            localStorage.setItem(saveName, mySaveText)
+            props.showAlert(`'${saveName}' saved to storage`, "Success!")
+        }
     }
 
     const handleGetSavedText = () => {
         var getItem = prompt("Enter the name of the save to get")
-        var savedText = localStorage.getItem(getItem)
-        if (savedText !== null) {
-            setText(localStorage.getItem(getItem))
-            props.showAlert(`'${getItem}' imported from storage`, "Success!")
-        }
-
-        if (savedText === null) {
-            props.showAlert(`Save file named '${getItem}' does not exist`, "ERROR!")
-        }
-
-        else{
-            function checkZero() {
-                if (savedText.length === 0) {
-                    props.showAlert(`No text available in '${getItem}'`, "ERROR!")
-                }
+        if (getItem != null) {
+            var savedText = localStorage.getItem(getItem)
+            if (savedText !== null) {
+                setText(localStorage.getItem(getItem))
+                props.showAlert(`'${getItem}' imported from storage`, "Success!")
             }
-            checkZero() 
+    
+            if (savedText === null) {
+                props.showAlert(`Save file named '${getItem}' does not exist`, "ERROR!")
+            }
+    
+            else {
+                function checkZero() {
+                    if (savedText.length === 0) {
+                        props.showAlert(`No text available in '${getItem}'`, "ERROR!")
+                    }
+                }
+                checkZero()
+            }
         }
 
     }
 
-    const handleClearAllSaves = ()=>{
+    const handleClearAllSaves = () => {
         localStorage.clear()
+        props.showAlert(`Cleared all save files`, "Success!")
+    }
+
+    const handleRead = () => {
+        let utterance = new SpeechSynthesisUtterance(text)
+        speechSynthesis.speak(utterance)
     }
 
     const handleOnChange = (event) => {
@@ -90,6 +100,31 @@ export default function TextForm(props) {
 
     return (
         <div>
+
+
+
+
+            <div className={`modal fade`} id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className={`modal-dialog`}>
+                    <div className={`modal-content bg-${props.mode} text-${props.mode === 'light' ? 'dark' : 'light'}`}>
+                        <div className="modal-header">
+                            <h1 className="modal-title fs-5" id="exampleModalLabel">Confirmation</h1>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Cl"></button>
+                        </div>
+                        <div className="modal-body">
+                            Are you sure you want to clear all save data?
+                        </div>
+                        <div className="modal-footer">
+                            <button type="button" className="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" className="btn btn-danger" data-bs-dismiss="modal" onClick={handleClearAllSaves}>Clear</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
             <div className={`container my-3 text-${props.mode === 'light' ? 'dark' : 'light'}`}>
 
                 <h1 className='text-center'>{props.heading}</h1>
@@ -105,7 +140,10 @@ export default function TextForm(props) {
                     <button type="submit" onClick={handleCopyText} className="btn btn-primary mx-2 my-2">Copy Text</button>
                     <button type="submit" onClick={handleSaveText} className="btn btn-primary mx-2 my-2">Save Text</button>
                     <button type="submit" onClick={handleGetSavedText} className="btn btn-primary mx-2 my-2">Get Saved Text</button>
-                    <button type="submit" onClick={handleClearAllSaves} className="btn btn-primary mx-2 my-2">Clear all saves</button>
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" className="btn btn-primary mx-2 my-2">Clear all saves</button>
+
+
+                    <button type="submit" onClick={handleRead} className="btn btn-primary mx-2 my-2">Read Aloud</button>
                 </div>
             </div>
             <div className={`container flex-row text-${props.mode === 'light' ? 'dark' : 'light'}`}>
